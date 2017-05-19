@@ -1,0 +1,58 @@
+.8086
+.MODEL SMALL
+EXTRA SEGMENT
+    ARRAY BYTE 10,1,2,3,4,5,6,7,8,9,10
+EXTRA ENDS
+.CODE
+ASSUME ES:EXTRA
+START:
+    MOV BX,EXTRA
+    MOV ES,BX
+    LEA DI,ES:ARRAY
+    
+    MOV AL,7
+    
+    MOV CX,0
+    MOV CL,ES:[DI]
+    INC DI
+    MOV DX,DI
+    ADD DX,CX
+    MOV SI,DX
+    MOV DX,0
+    
+    CMP AL,ES:[DI]
+    MOV BX,DI
+    JB NOTFOUND
+    JE FOUND
+    CMP AL,ES:[SI-1]
+    MOV BX,SI
+    JA NOTFOUND
+    JE FOUND
+
+WORK:
+    MOV BX,DI
+    ADD BX,SI
+    SHR BX,1
+    CMP AL,ES:[BX]
+    JZ FOUND
+    PUSHF
+    CMP BX,DI
+    JZ NOTFOUND
+    POPF
+    JL LESS
+    MOV DI,BX
+    JMP WORK
+LESS:
+    MOV SI,BX
+    JMP WORK
+NOTFOUND:
+    STC
+    JMP EXIT
+FOUND:
+    CLC
+    MOV BX,SI
+    JMP EXIT
+EXIT:
+    MOV AH,4CH
+    INT 21H
+END START

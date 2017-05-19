@@ -1,0 +1,16 @@
+.8086
+.MODEL SMALL
+.STACK
+.DATA
+    Table BYTE 0,1,4,9,16,25,36,49,64,81
+    XX BYTE 9
+    YY BYTE ?
+.CODE
+START:
+    MOV AX,@DATA
+    MOV DS,AX
+    LEA BX,Table
+    MOV AL,XX
+    XLAT
+    MOV YY,AL
+END START
