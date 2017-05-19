@@ -6,8 +6,8 @@
     MAXLEN BYTE N
     ACTLEN BYTE ?
     STRING BYTE N DUP('$')
-    TRUE BYTE 'It is a palindrome',0AH,0DH,'$'
-    FALSE BYTE 'It is NOT a palindrome',0AH,0DH,'$'
+    TRUE BYTE 0AH,0DH,'It is a palindrome',0AH,0DH,'$'
+    FALSE BYTE 0AH,0DH,'It is NOT a palindrome',0AH,0DH,'$'
     CR BYTE 0AH,0DH
 .CODE
 START:
@@ -20,6 +20,10 @@ START:
     MOV AH,0
     MOV BL,2
     DIV BL
+    CMP AH,1
+    JE ITSODD
+    CMP AL,1
+    JE ITSTWO
     ADD AL,AH
     MOV AH,0
     MOV BL,ACTLEN
@@ -27,7 +31,8 @@ START:
     MOV SI,BX
     MOV BX,OFFSET STRING
     DEC SI
-LP: CMP SI,AX
+ITSEVEN:
+    CMP SI,AX
     JNA T
     MOV DL,[BX+SI]
     MOV DH,[BX]
@@ -35,7 +40,30 @@ LP: CMP SI,AX
     JNZ F
     INC BX
     SUB SI,2
-    JMP LP
+    JMP ITSEVEN
+ITSODD:
+    MOV AH,0
+    MOV BL,ACTLEN
+    MOV BH,0
+    MOV SI,BX
+    MOV BX,OFFSET STRING
+    DEC SI
+JUDGEODD:
+    CMP SI,AX
+    JNA T
+    MOV DL,[BX+SI]
+    MOV DH,[BX]
+    CMP DL,DH
+    JNZ F
+    INC BX
+    SUB SI,2
+    JMP JUDGEODD
+ITSTWO:
+    MOV BX,OFFSET STRING
+    MOV DL,[BX+1]
+    MOV DH,[BX]
+    CMP DL,DH
+    JNE F
 T:  MOV DX,OFFSET TRUE
     JMP QUIT
 F:  MOV DX,OFFSET FALSE

@@ -11,6 +11,6 @@ START:
     MOV DS,AX
     LEA BX,Table
     MOV AL,XX
-    XLAT
+    XLAT;以DS:[BX+AL]为地址，提取存储器中的一个字节再送入AL。
     MOV YY,AL
 END START
