@@ -13,9 +13,9 @@ START:
     MOV AH,01H
     INT 21H
     CMP AL,'1'
-    JL ERR
+    JL ERR;小于1的ASCII码错误
     CMP AL,'6'
-    JG ERR
+    JG ERR;大于6的ASCII码错误
     SUB AL,30H
     MOV CL,AL
     LEA DX,ENDL
