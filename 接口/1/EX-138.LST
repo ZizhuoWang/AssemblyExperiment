@@ -1,0 +1,65 @@
+MPASM  5.03                        EX-138.ASM   5-23-2017  23:03:56         PAGE  1
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+0000                  00001 .8086
+Error[122]  : Illegal opcode (SMALL)
+0000                  00002 .MODEL SMALL
+0000                  00003 .stack
+0000                  00004 .data
+Warning[207]: Found label after column 1. (address)
+Error[122]  : Illegal opcode (word)
+0000                  00005   address  word 240h
+0000                  00006 .code
+0000                  00007 start:
+Warning[207]: Found label after column 1. (mov)
+Error[122]  : Illegal opcode (ax)
+0000                  00008     mov ax,@data
+Warning[207]: Found label after column 1. (mov)
+Error[122]  : Illegal opcode (ds)
+0000                  00009     mov ds,ax
+Warning[207]: Found label after column 1. (mov)
+Error[122]  : Illegal opcode (dx)
+0000                  00010     mov dx,address
+Warning[207]: Found label after column 1. (mov)
+Error[122]  : Illegal opcode (al)
+0000                  00011     mov al,0
+Warning[207]: Found label after column 1. (out)
+Error[122]  : Illegal opcode (dx)
+0000                  00012     out dx,al
+Warning[207]: Found label after column 1. (jmp)
+Error[108]  : Illegal character ($)
+0000                  00013     jmp $
+Warning[205]: Found directive in column 1. (END)
+Warning[211]: Extraneous arguments on the line.
+                      00014 END start
+Error[131]  : Processor type is undefined
+MPASM  5.03                        EX-138.ASM   5-23-2017  23:03:56         PAGE  2
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
+.8086                             00000000
+.code                             00000000
+.data                             00000000
+.stack                            00000000
+start                             00000000
+
+
+MEMORY USAGE MAP ('X' = Used,  '-' = Unused)
+
+
+All other memory blocks unused.
+
+Program Memory Words Used:     0
+Program Memory Words Free:     1
+
+
+Errors   :     9
+Warnings :     9 reported,     0 suppressed
+Messages :     0 reported,     0 suppressed
+
+
